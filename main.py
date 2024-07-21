@@ -5,9 +5,11 @@ lines = open('example.py', 'r').read().splitlines()
 for i in range(len(lines)):
     line = string(lines[i])
     if 'def' in line:
+        name = line.split()[1]
+        returns = line.split()[-1]
         args = line.split('(')[1].split(')')[0].removeprefix('self, ')
         splitargs = args.split(',')
-        args = ''
+        args = '('
         for arg in splitargs:
             argz = arg
             arg = arg.replace(' ', '')
@@ -25,9 +27,10 @@ for i in range(len(lines)):
             args += jarg
             if not argz == splitargs[-1]:
                 args += ', '
-        print(args)
+            else:
+                args += ')'
         line = string(line.replace(':', '{'))
-        print(line)
+
         level = line.ltab()
         for j in range(i, len(lines)):
             line = string(lines[j])
